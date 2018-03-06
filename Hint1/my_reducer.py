@@ -14,7 +14,7 @@
 
 import sys
 import codecs
-
+import time
 
 
 
@@ -22,7 +22,20 @@ import codecs
 # FUNCTION my_reduce
 # ------------------------------------------
 def my_reduce(input_stream, num_top_entries, output_stream):
-    pass
+    temp = [line.split() for line in input_stream]
+    #unique = set(x[0] for x in temp)
+    unique, num = ([] for x in range(2))
+    for x in range (0, len(temp)):
+        if temp[x][0] not in unique:
+            unique.append(temp[x][0])
+            num.append(x)
+    num.append(len(temp))
+    #for word in unique:
+    for x in range(1, len(num)):
+        #ls = sorted([y for y in temp if word == y[0]], key=lambda lines: int(lines[2][:-1]), reverse=True)
+        ls = sorted(temp[num[x-1]:num[x]], key=lambda j: int(j[2][:-1]),reverse=True)
+        for y in range(min(len(ls), num_top_entries)):
+            output_stream.write(ls[y][0]+"\t"+ls[y][1]+ls[y][2]+"\n")
 
 # ------------------------------------------
 # FUNCTION my_main
@@ -57,5 +70,6 @@ if __name__ == '__main__':
     o_file_name = "reduce_simulation.txt"
 
     num_top_entries = 5
-
+    s = time.time()
     my_main(debug, i_file_name, o_file_name, num_top_entries)
+    print(time.time() - s)

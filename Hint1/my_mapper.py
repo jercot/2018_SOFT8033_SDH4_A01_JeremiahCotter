@@ -22,7 +22,12 @@ import codecs
 # FUNCTION my_map
 # ------------------------------------------
 def my_map(input_stream, languages, num_top_entries, output_stream):
-    pass
+    #temp = [line.split() for line in input_stream]
+    #temp = sorted(temp, key=lambda lines: (lines[2]), reverse=True)
+    #temp = sorted(temp, key=lambda lines: (lines[0]))
+    for line in [line.split() for line in input_stream]:
+        if line[0][:2] in languages and (len(line[0])==2 or line[0][2] == "."):
+            output_stream.write("".join((line[0], "\t(", line[1], ", ", line[2], ")\n")))
 
 # ------------------------------------------
 # FUNCTION my_main
