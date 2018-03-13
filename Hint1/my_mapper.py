@@ -15,19 +15,34 @@
 import sys
 import codecs
 
+def get_key_value(line):
+    words = line.split()
 
-
+    # 3. Get the key and the value and return them
+    key = words[0]
+    value = words[1]
+    return key, value
 
 # ------------------------------------------
 # FUNCTION my_map
 # ------------------------------------------
 def my_map(input_stream, languages, num_top_entries, output_stream):
-    #temp = [line.split() for line in input_stream]
-    #temp = sorted(temp, key=lambda lines: (lines[2]), reverse=True)
-    #temp = sorted(temp, key=lambda lines: (lines[0]))
+    dict = {}
     for line in [line.split() for line in input_stream]:
         if line[0][:2] in languages and (len(line[0])==2 or line[0][2] == "."):
-            output_stream.write("".join((line[0], "\t(", line[1], ", ", line[2], ")\n")))
+            if line[0] not in dict:
+                dict[line[0]] = []
+            dict[line[0]].append(line[1]+", "+line[2])
+
+    for t in dict:
+        tempD = dict[t]
+        l = []
+        for line in tempD:
+            (k, v) = get_key_value(line)
+            l.append((k, v))
+        l = sorted(l, key=lambda j: int(j[1]), reverse=True)
+        for x in l[:num_top_entries]:
+            output_stream.write(t + "\t(" + x[0] + " " + x[1] + ")\n")
 
 # ------------------------------------------
 # FUNCTION my_main
