@@ -19,7 +19,13 @@ import sys
 # FUNCTION my_map
 # ------------------------------------------
 def my_map(input_stream, output_stream):
-    pass
+    count = 0
+    for line in [line.split() for line in input_stream]:
+        try:
+            count+=int(line[-2])
+        except:
+            count+=int(line[1])
+    output_stream.write("num_words\t" + str(count) + "\n")
 
 # ------------------------------------------
 # FUNCTION my_main

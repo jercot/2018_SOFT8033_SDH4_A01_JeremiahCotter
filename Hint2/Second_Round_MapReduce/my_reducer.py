@@ -19,7 +19,19 @@ import codecs
 # FUNCTION my_reduce
 # ------------------------------------------
 def my_reduce(input_stream, total_petitions, output_stream):
-    pass
+    dict = {}
+    total = 0
+
+    for line in [line.split() for line in input_stream]:
+        if line[0] not in dict:
+            dict[line[0]] = 0;
+        dict[line[0]] += int(line[1])
+        total += int(line[1])
+
+    temp = sorted(dict.items(), key=lambda x: int(x[1]), reverse=True)
+    for out in temp:
+        output_stream.write(out[0] + "\t(" + str(out[1]) + ", " + str(out[1]/total*100) + "%)\n")
+
 
 # ------------------------------------------
 # FUNCTION my_main
@@ -50,8 +62,8 @@ if __name__ == '__main__':
     # 1. Input parameters
     debug = True
 
-    # This variable must be computed in the first stage
-    total_petitions = ???
+    # This variable must be computed in the first stage | Why get it here? Easier to just add all in the dict
+    total_petitions = 0
 
     i_file_name = "sort_simulation.txt"
     o_file_name = "reduce_simulation.txt"

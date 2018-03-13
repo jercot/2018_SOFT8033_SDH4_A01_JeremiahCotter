@@ -19,7 +19,21 @@ import codecs
 # FUNCTION my_map
 # ------------------------------------------
 def my_map(input_stream, per_language_or_project, output_stream):
-    pass
+    dict = {}
+    for line in [line.split() for line in input_stream]:
+        temp = line[0];
+        if '.' in temp:
+            temp = line[0].split('.')[1]
+            if per_language_or_project:
+                temp = line[0].split('.')[0]
+        if temp not in dict:
+            dict[temp] = 0
+        try:
+            dict[temp] += int(line[-2])
+        except:
+            dict[temp] += int(line[1])
+    for key in dict:
+        output_stream.write(key + "\t" + str(dict[key]) + "\n")
 
 # ------------------------------------------
 # FUNCTION my_main
