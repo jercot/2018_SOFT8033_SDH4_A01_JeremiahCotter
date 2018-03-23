@@ -52,8 +52,8 @@ def my_main(dataset_dir, o_file_dir, languages, num_top_entries):
     from pyspark.rdd import RDD
     RDD.takeOrderedByKey = take_ordered_by_key
 
-    rdd2 = sc.textFile("/FileStore/tables/my_dataset/")
-    filterRDD = rdd2.filter(lambda x: filter_func(x, languages))
+    inputRDD = sc.textFile("/FileStore/tables/my_dataset/")
+    filterRDD = inputRDD.filter(lambda x: filter_func(x, languages))
     mapRDD = filterRDD.map(lambda x: (x.split()[0], (x.split()[0], x.split()[1], x.split()[2])))
     topRDD = mapRDD.takeOrderedByKey(num_top_entries, sortValue=lambda x: int(x[2]), reverse=True).flatMap(
         lambda x: x[1])
