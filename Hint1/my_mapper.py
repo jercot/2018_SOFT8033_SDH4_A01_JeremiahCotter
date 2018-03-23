@@ -28,21 +28,21 @@ def get_key_value(line):
 # ------------------------------------------
 def my_map(input_stream, languages, num_top_entries, output_stream):
     dict = {}
-    for line in [line.split() for line in input_stream]:
-        if line[0][:2] in languages and (len(line[0])==2 or line[0][2] == "."):
-            if line[0] not in dict:
-                dict[line[0]] = []
-            dict[line[0]].append(line[1]+", "+line[2])
+    for line in input_stream:
+        word = line.split()
+        if word[0][:2] in languages and (len(word[0]) == 2 or word[0][2] == "."):
+            if word[0] not in dict:
+                dict[word[0]] = []
+                for x in range(0, num_top_entries):
+                    dict[word[0]].append(("empty", 0))
+            if int(dict[word[0]][-1][1]) < int(word[2]):
+                dict[word[0]][-1] = (word[1], word[2])
+                dict[word[0]].sort(key=lambda x: int(x[1]), reverse=True)
 
-    for t in dict:
-        tempD = dict[t]
-        l = []
-        for line in tempD:
-            (k, v) = get_key_value(line)
-            l.append((k, v))
-        l = sorted(l, key=lambda j: int(j[1]), reverse=True)
-        for x in l[:num_top_entries]:
-            output_stream.write(t + "\t(" + x[0] + " " + x[1] + ")\n")
+    for d in dict:
+        for tup in dict[d]:
+            if int(tup[1]) != 0:
+                output_stream.write(d + "\t(" + tup[0] + ", " + tup[1] + ")\n")
 
 # ------------------------------------------
 # FUNCTION my_main

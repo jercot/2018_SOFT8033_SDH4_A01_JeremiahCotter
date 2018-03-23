@@ -26,12 +26,13 @@ def write_file(output_stream, num_top_entries, output_list):
 def my_reduce(input_stream, num_top_entries, output_stream):
     temp = ""
     output_list = []
-    for line in [line.split() for line in input_stream]:
-        if line[0] != temp and  len(output_list)>0:
+    for line in input_stream:
+        word = line.split()
+        if word[0] != temp and len(output_list) > 0:
             write_file(output_stream, num_top_entries, output_list)
             output_list = []
-        output_list.append(line)
-        temp = line[0]
+        output_list.append(word)
+        temp = word[0]
     write_file(output_stream, num_top_entries, output_list)
 
 
