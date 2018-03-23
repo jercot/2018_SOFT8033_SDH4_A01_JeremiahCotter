@@ -20,18 +20,19 @@ import codecs
 # ------------------------------------------
 def my_map(input_stream, per_language_or_project, output_stream):
     dict = {}
-    for line in [line.split() for line in input_stream]:
-        temp = line[0];
+    for line in input_stream:
+        word = line.split()
+        temp = word[0];
         if '.' in temp:
-            temp = line[0].split('.')[1]
+            temp = word[0].split('.')[0]
             if per_language_or_project:
-                temp = line[0].split('.')[0]
+                temp = word[0].split('.')[1]
         if temp not in dict:
             dict[temp] = 0
         try:
-            dict[temp] += int(line[-2])
+            dict[temp] += int(word[-2])
         except:
-            dict[temp] += int(line[1])
+            dict[temp] += int(word[1])
     for key in dict:
         output_stream.write(key + "\t" + str(dict[key]) + "\n")
 
@@ -67,7 +68,7 @@ if __name__ == '__main__':
     i_file_name = "pageviews-20180219-100000_0.txt"
     o_file_name = "mapResult.txt"
 
-    per_language_or_project = True # True for language and False for project
+    per_language_or_project = Flase # True for language and False for project
 
     # 2. Call to the function
     my_main(debug, i_file_name, o_file_name, per_language_or_project)

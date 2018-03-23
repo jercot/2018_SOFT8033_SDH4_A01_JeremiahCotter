@@ -20,9 +20,10 @@ import codecs
 # ------------------------------------------
 def my_reduce(input_stream, output_stream):
     total = 0
-    for line in [line.split() for line in input_stream]:
+    for line in input_stream:
+        word = line.split()
         try:
-            total+=int(line[1])
+            total+=int(word[1])
         except:
             print("something went wrong")
     output_stream.write("num_words\t" + str(total) + "\n")

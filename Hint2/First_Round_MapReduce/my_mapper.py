@@ -20,11 +20,12 @@ import sys
 # ------------------------------------------
 def my_map(input_stream, output_stream):
     count = 0
-    for line in [line.split() for line in input_stream]:
+    for line in input_stream:
+        word = line.split()
         try:
-            count+=int(line[-2])
+            count+=int(word[-2])
         except:
-            count+=int(line[1])
+            count+=int(word[1])
     output_stream.write("num_words\t" + str(count) + "\n")
 
 # ------------------------------------------

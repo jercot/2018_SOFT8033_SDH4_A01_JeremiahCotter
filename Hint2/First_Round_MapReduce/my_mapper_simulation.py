@@ -88,7 +88,7 @@ def simulating_my_map(directory, extension, output_stream):
 # ------------------------------------------
 def my_main(ext, o_file_name):
     # 1. Set the directory
-    dataset_dir = "C://Users//jerem//Documents//Git//2018_SOFT8033_SDH4_A01_JeremiahCotter//my_dataset"
+    dataset_dir = os.path.abspath('../../my_dataset')
     # 2. We open the file for writing
     output_file = codecs.open(o_file_name, "w", encoding='utf-8')
 
