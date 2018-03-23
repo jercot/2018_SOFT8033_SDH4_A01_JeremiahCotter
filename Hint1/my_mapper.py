@@ -30,7 +30,7 @@ def my_map(input_stream, languages, num_top_entries, output_stream):
     dict = {}
     for line in input_stream:
         word = line.split()
-        if word[0][:2] in languages and (len(word[0]) == 2 or word[0][2] == "."):
+        if word[0].split('.')[0] in languages and (len(word[0]) == 2 or word[0][2] == "."):
             if word[0] not in dict:
                 dict[word[0]] = []
                 for x in range(0, num_top_entries):
