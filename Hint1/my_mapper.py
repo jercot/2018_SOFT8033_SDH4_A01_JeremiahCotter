@@ -15,14 +15,6 @@
 import sys
 import codecs
 
-def get_key_value(line):
-    words = line.split()
-
-    # 3. Get the key and the value and return them
-    key = words[0]
-    value = words[1]
-    return key, value
-
 # ------------------------------------------
 # FUNCTION my_map
 # ------------------------------------------
