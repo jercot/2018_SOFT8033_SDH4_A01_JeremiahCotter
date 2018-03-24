@@ -24,9 +24,11 @@ def my_map(input_stream, per_language_or_project, output_stream):
         word = line.split()
         temp = word[0];
         if '.' in temp:
-            temp = word[0].split('.')[0]
+            temp = word[0].split('.')[1]
             if per_language_or_project:
-                temp = word[0].split('.')[1]
+                temp = word[0].split('.')[0]
+        elif not per_language_or_project:
+            temp = "wikipedia"
         if temp not in dict:
             dict[temp] = 0
         try:
@@ -68,7 +70,7 @@ if __name__ == '__main__':
     i_file_name = "pageviews-20180219-100000_0.txt"
     o_file_name = "mapResult.txt"
 
-    per_language_or_project = Flase # True for language and False for project
+    per_language_or_project = True # True for language and False for project
 
     # 2. Call to the function
     my_main(debug, i_file_name, o_file_name, per_language_or_project)
